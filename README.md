@@ -4,6 +4,8 @@ When making the database design, we often need to add a lot of Boolean type fiel
 
 A common practice is to these boolean fields are integrated into an integer field, a binary bit represents a Boolean field. For an article, if 1 (the first bit) means open, 2 (second bit) means commentable, 4 means original, then an open, commentable, original article was marked as 7 (1 +2 +4), open, does not allow comments, original articles marked as 5 (1 +0 +4). Fields can be marked with an integer instead of multiple Boolean attributes, obviously it is good, but doing so will cause inconvenience on code management. For a programmer to deal directly with these flag bits will be a headache, and such code does not look elegant.
 
+Mongoid::StateBits provides an elegant way to manage such situation.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -24,10 +26,13 @@ Use the follwing code:
     class Post
       include Mongoid::Document
       include Mongoid::StateBits
-      state_bits %w{public commentable original}
+      state_bits %w{deleted commentable original}
     end
 
-Then the Post model has three new fields
+Three state_bits statement of three boolean field will generate three methods for each one,  commentable/commentable?/public= () in `commentable` case, and also generate a `scope` corresponding to each field.
+
+If you need to increase the field in the array can be directly% w {public commentable original} which added that all field default values ​​are false.
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/mongoid-state_bits/fork )
