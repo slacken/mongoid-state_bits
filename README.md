@@ -29,9 +29,9 @@ Use the follwing code:
       state_bits %w{deleted commentable original}
     end
 
-Three state_bits statement of three boolean field will generate three methods for each one,  commentable/commentable?/public= () in `commentable` case, and also generate a `scope` corresponding to each field.
+Three state_bits statement of three boolean field will generate three methods for each one,  commentable/commentable?/commentable= () in `commentable` case, and also generate a `scope` corresponding to each field.
 
-If you need to increase the field in the array can be directly% w {public commentable original} which added that all field default values ​​are false.
+If you need to increase the field in the array can be directly% w {deleted commentable original} which added that all field default values ​​are false.
 
 ## Contributing
 
