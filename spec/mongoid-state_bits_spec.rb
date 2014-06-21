@@ -7,6 +7,12 @@ class Post
   state_bits %w{deleted commentable original}
 end
 
+class User
+  include Mongoid::Document
+  include Mongoid::StateBits
+  state_bits admin: true, deleted: false
+end
+
 describe Mongoid::StateBits do 
   it "should generate specified fields" do
     p = Post.new
@@ -21,5 +27,11 @@ describe Mongoid::StateBits do
     p.commentable = false
     p.deleted = true
     p.state_bits.should eq(5)
+  end
+
+  it "supports default value definition" do
+    u = User.new
+    u.admin.should be_true
+    u.deleted.should be_false
   end
 end
