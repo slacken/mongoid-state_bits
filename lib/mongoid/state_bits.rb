@@ -32,7 +32,7 @@ module Mongoid
         # define methods
         bits.each_with_index do |bit, index|
           define_method "#{bit}=" do |bool|
-            if bool
+            if ["true", true, "1", 1].include?(bool)
               self.state_bits |= 2**index
             else
               self.state_bits -= (self.state_bits & 2**index)
