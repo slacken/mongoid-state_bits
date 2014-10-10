@@ -44,7 +44,7 @@ module Mongoid
           alias_method "#{bit}?", "#{bit}"
           # then define scopes
           scope bit, ->{ where("this.state_bits & #{2**index}")}
-          scope "non#{bit}", ->{ where("this.state_bits & #{2**index} == 0")}
+          scope "non#{bit}", ->{ where("(this.state_bits & #{2**index}) == 0")}
         end
       end
     end #ClassMethods
