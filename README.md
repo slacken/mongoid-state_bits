@@ -41,6 +41,10 @@ Now(v0.2.0) it supports default values:
       state_bits deleted:false, commentable: true,  original: true
     end
 
+v0.3.0 supports multiple selector:
+    
+    Post.state(deleted: true, original: false)
+
 ## Contributing
 
 1. Fork it ( http://github.com/Slacken/mongoid-state_bits/fork )

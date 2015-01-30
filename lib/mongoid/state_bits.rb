@@ -29,11 +29,18 @@ module Mongoid
         end
         # declare the field
         field :state_bits, type: Integer, default: default
-        scope :state_bits, ->(map) do
+        
+        scope :state, ->(map) do
           keys = bits.map{|k| k.to_sym}
-          value = map.inject(0){|sum, v| sum += (v[1] ? 2**keys.index(v[0]): 0)}
-          where("this.state_bits & #{value} == #{value}")
+          select, filter = 0, 0
+          map.each_pair do |key, value|
+            v = 2**keys.index(key)
+            select += v
+            filter += value ? v : 0
+          end
+          where("this.state_bits & #{select} == #{filter}")
         end
+        
         # define methods
         bits.each_with_index do |bit, index|
           define_method "#{bit}=" do |bool|
